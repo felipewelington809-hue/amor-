@@ -1,0 +1,240 @@
+/* ===== Cores e fontes (mude aqui para personalizar) ===== */
+:root {
+  --cream: #fbf3ea;
+  --paper: #fff9f2;
+  --blush: #f4d9d9;
+  --rose: #c9707f;
+  --rose-soft: #e8b4bb;
+  --wine: #7a2e43;
+  --ink: #4b2c36;
+  --gold: #c9a36b;
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --hand: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100svh;
+  overflow-x: clip;
+  font-family: var(--sans);
+  color: var(--ink);
+  background:
+    radial-gradient(120% 70% at 50% -10%, #fff3ea 0%, transparent 60%),
+    radial-gradient(90% 60% at 100% 100%, #efc2c8 0%, transparent 65%),
+    radial-gradient(80% 60% at 0% 90%, #f6d3cf 0%, transparent 60%),
+    var(--blush);
+  background-attachment: fixed;
+}
+/* textura sutil de papel */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .3 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+svg { display: block; }
+:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+
+/* ===== Botões ===== */
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  min-height: 54px; max-width: 100%;
+  padding: 14px 28px;
+  font: italic 600 clamp(1.05rem, 4.4vw, 1.25rem)/1.25 var(--serif);
+  color: var(--cream); text-align: center;
+  background: linear-gradient(160deg, #9a3f57, var(--wine));
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), 0 10px 24px -8px rgba(122,46,67,.55);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: scale(.97); }
+.btn:disabled { cursor: default; opacity: .75; transform: none; }
+.btn-soft {
+  color: var(--wine); background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--rose-soft);
+  margin-top: 1.4rem;
+}
+
+/* ===== Decorações ===== */
+.decor {
+  position: absolute; width: 22px; height: 22px; color: var(--rose);
+  cursor: pointer; opacity: .8;
+  translate: 0 0; transition: translate .5s var(--ease);
+  animation: floaty 6s ease-in-out var(--d, 0s) infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.decor svg { width: 100%; height: 100%; }
+.decor.wiggle { animation: wiggle .6s ease; }
+
+.d-a { top: 12%; left: 12%; width: 18px; height: 18px; color: var(--gold); }
+.d-b { top: 20%; right: 11%; width: 16px; height: 16px; }
+.d-c { bottom: 14%; left: 10%; width: 24px; height: 24px; color: #d98a96; }
+.d-d { bottom: 22%; right: 12%; width: 14px; height: 14px; color: var(--gold); }
+
+.p-a { top: -12px; left: 14px; width: 28px; height: 28px; color: #d98a96; }
+.p-b { top: 16px; right: 18px; width: 18px; height: 18px; color: var(--gold); }
+.p-c { bottom: 14px; left: 18px; width: 24px; height: 24px; color: var(--rose); }
+.p-d { bottom: -10px; right: 20px; width: 20px; height: 20px; }
+
+/* ===== Tela inicial ===== */
+.scene {
+  position: fixed; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(26px, 6vh, 44px);
+  padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  transition: opacity .9s var(--ease), transform .9s var(--ease), visibility 0s;
+}
+.scene.leave { opacity: 0; transform: scale(1.06); visibility: hidden; pointer-events: none; transition: opacity .9s var(--ease), transform .9s var(--ease), visibility 0s .9s; }
+
+.invite {
+  margin: 0; text-align: center;
+  font: italic 500 clamp(2rem, 9.5vw, 3.1rem)/1.12 var(--serif);
+  color: var(--wine); letter-spacing: .005em;
+  animation: fadeUp 1.2s var(--ease) .1s both;
+}
+
+/* envelope em CSS puro */
+.envelope {
+  --w: min(78vw, 330px);
+  position: relative; width: var(--w); height: calc(var(--w) * .68);
+  perspective: 900px;
+  filter: drop-shadow(0 22px 22px rgba(122,46,67,.22));
+  animation: fadeUp 1.2s var(--ease) .35s both, floaty 7s ease-in-out 1.6s infinite;
+}
+.env-back, .env-front, .env-flap, .env-card { position: absolute; }
+.env-back { inset: 0; background: #dfa2ab; border-radius: 6px; }
+.env-front {
+  inset: 0; z-index: 3; border-radius: 6px;
+  background: linear-gradient(165deg, #f3c6cc, #e7a9b3);
+  clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+}
+.env-flap {
+  top: 0; left: 0; width: 100%; height: 60%; z-index: 4;
+  background: linear-gradient(180deg, #efb7c0, #e49fab);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform .8s var(--ease), z-index 0s .4s;
+}
+.env-card {
+  left: 7%; right: 7%; top: 8%; bottom: 8%; z-index: 2;
+  display: grid; place-items: center;
+  background: var(--paper); border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(201,163,107,.35) inset;
+  font: 600 1.7rem/1 var(--hand); color: var(--rose);
+  transition: transform 1s var(--ease) .55s;
+}
+.env-seal {
+  position: absolute; z-index: 5; left: 50%; top: 56%;
+  width: 36px; height: 36px; translate: -50% -50%; color: var(--wine);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.25));
+  transition: opacity .3s, scale .3s;
+}
+.envelope.open .env-flap { transform: rotateX(180deg); z-index: 1; background: #d98f9c; }
+.envelope.open .env-card { transform: translateY(-58%); }
+.envelope.open .env-seal { opacity: 0; scale: .4; }
+
+/* corações voando */
+.fly-heart {
+  position: fixed; z-index: 60; pointer-events: none;
+  width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  animation: fly 1.8s var(--ease) forwards;
+}
+.fly-heart svg { width: 100%; height: 100%; }
+
+/* ===== A carta ===== */
+.letter {
+  position: relative; z-index: 1; min-height: 100svh;
+  display: grid; place-items: center;
+  padding: 28px 16px calc(40px + env(safe-area-inset-bottom));
+  opacity: 0; visibility: hidden;
+  transition: opacity .9s var(--ease), visibility 0s .9s;
+}
+.letter.show { opacity: 1; visibility: visible; transition: opacity .9s var(--ease); }
+
+.paper {
+  position: relative; width: 100%; max-width: 500px;
+  padding: clamp(34px, 9vw, 54px) clamp(22px, 7vw, 46px) clamp(30px, 8vw, 44px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.7), transparent 30%),
+    var(--paper);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 #fff inset, 0 30px 50px -22px rgba(122,46,67,.45), 0 4px 10px rgba(122,46,67,.12);
+  text-align: left;
+  transform: translateY(46px) scale(.96) rotate(-.6deg); opacity: 0;
+}
+.paper::before {
+  content: ""; position: absolute; inset: 9px; border-radius: 3px; pointer-events: none;
+  border: 1px solid rgba(201,163,107,.55);
+}
+.letter.show .paper { animation: paperIn 1.2s var(--ease) .1s forwards; }
+
+.paper p {
+  margin: 0 0 1.15em;
+  font-size: clamp(1.02rem, 4.2vw, 1.14rem); line-height: 1.8; font-weight: 400;
+}
+.greeting {
+  margin: 0 0 .6em; font: italic 600 clamp(2.1rem, 10vw, 2.9rem)/1.1 var(--serif); color: var(--wine);
+}
+.paper .final {
+  margin-top: 1.4em; text-align: center;
+  font: italic 600 clamp(1.5rem, 6.6vw, 1.9rem)/1.3 var(--serif); color: var(--wine);
+}
+.paper .sign {
+  margin: 0; text-align: right; font: 600 clamp(1.5rem, 6vw, 1.8rem)/1.2 var(--hand); color: var(--rose);
+}
+#replayBtn { display: block; margin-left: auto; margin-right: auto; }
+
+/* foto estilo polaroid */
+.polaroid {
+  position: relative; width: min(66%, 230px); margin: 1.6em auto 1.9em;
+  padding: 10px 10px 8px; background: #fff; border-radius: 3px;
+  box-shadow: 0 14px 26px -10px rgba(75,44,54,.45), 0 2px 5px rgba(75,44,54,.15);
+  rotate: 2.5deg;
+}
+.polaroid::before {
+  content: ""; position: absolute; top: -11px; left: 50%; width: 76px; height: 22px; translate: -50% 0; rotate: -3deg;
+  background: rgba(232,180,187,.7); box-shadow: 0 1px 2px rgba(0,0,0,.08);
+}
+.photo-frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; background: var(--blush); }
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-fallback {
+  position: absolute; inset: 0; display: none; place-items: center; align-content: center; gap: 8px;
+  color: var(--rose); background: linear-gradient(160deg, #f9e4e2, #f1c9cd);
+}
+.photo-fallback svg { width: 38px; height: 38px; }
+.photo-fallback small { font: 600 1.15rem/1 var(--hand); color: var(--wine); }
+.photo-frame.no-photo img { display: none; }
+.photo-frame.no-photo .photo-fallback { display: grid; }
+.polaroid figcaption { padding-top: 8px; text-align: center; font: 600 1.25rem/1.2 var(--hand); color: var(--wine); }
+
+/* revelação suave, uma única vez ao abrir */
+.reveal { opacity: 0; }
+.letter.show .reveal { animation: fadeUp 1s var(--ease) calc(.9s + var(--i) * .38s) forwards; }
+
+/* ===== Animações ===== */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes paperIn { to { opacity: 1; transform: none; } }
+@keyframes floaty { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(4deg); } }
+@keyframes wiggle { 0%, 100% { transform: rotate(0) scale(1); } 30% { transform: rotate(-16deg) scale(1.3); } 60% { transform: rotate(12deg) scale(1.2); } }
+@keyframes fly {
+  0% { opacity: 0; transform: translate(0, 0) scale(.5) rotate(0); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1) rotate(var(--r)); }
+}
+
+/* telas maiores */
+@media (min-width: 768px) {
+  .envelope { --w: 360px; }
+  .p-a { left: -10px; top: -14px; }
+  .p-d { right: -8px; }
+}
+
+/* movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+  .reveal, .paper { opacity: 1; transform: none; }
+}

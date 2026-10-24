@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4d9d9">
+  <title>Uma cartinha pra você 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ícones reutilizáveis (inline, sem dependências externas) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.500-4.600-9.600-9.300C.9 8.200 3 4.500 6.600 4.500c2.100 0 3.800 1.200 5.400 3.200 1.600-2 3.300-3.200 5.400-3.200 3.600 0 5.700 3.700 4.200 7.200C19.500 16.400 12 21 12 21z"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1c.8 5.600 3.400 9.200 11 11-7.600 1.800-10.200 5.400-11 11-.8-5.600-3.400-9.200-11-11C8.600 10.200 11.200 6.600 12 1z"/></symbol>
+      <symbol id="i-flower" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="5.500" r="4"/><circle cx="18.200" cy="10" r="4"/><circle cx="15.800" cy="17.300" r="4"/><circle cx="8.200" cy="17.300" r="4"/><circle cx="5.800" cy="10" r="4"/></g><circle cx="12" cy="12" r="3" fill="#f1d9a8"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.500" stroke-linejoin="round" stroke-linecap="round" d="M3 6h18v12H3zM3 6l9 7 9-7"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- TELA INICIAL -->
+  <main id="scene" class="scene">
+    <span class="decor d-a" style="--d:0s"><svg><use href="#i-spark"/></svg></span>
+    <span class="decor d-b" style="--d:1.2s"><svg><use href="#i-heart"/></svg></span>
+    <span class="decor d-c" style="--d:.6s"><svg><use href="#i-flower"/></svg></span>
+    <span class="decor d-d" style="--d:1.8s"><svg><use href="#i-spark"/></svg></span>
+
+    <p class="invite">Preparei uma coisinha<br>pra você... ❤️</p>
+
+    <div class="envelope" id="envelope" aria-hidden="true">
+      <div class="env-back"></div>
+      <div class="env-card"><span>para você</span></div>
+      <div class="env-front"></div>
+      <div class="env-flap"></div>
+      <svg class="env-seal"><use href="#i-heart"/></svg>
+    </div>
+
+    <button class="btn" id="openBtn" type="button">Clique aqui para abrir sua cartinha 💌</button>
+  </main>
+
+  <!-- A CARTA -->
+  <section id="letter" class="letter" inert aria-label="Carta">
+    <article class="paper">
+      <span class="decor p-a" style="--d:0s"><svg><use href="#i-flower"/></svg></span>
+      <span class="decor p-b" style="--d:1s"><svg><use href="#i-spark"/></svg></span>
+      <span class="decor p-c" style="--d:.5s"><svg><use href="#i-mail"/></svg></span>
+      <span class="decor p-d" style="--d:1.5s"><svg><use href="#i-heart"/></svg></span>
+
+      <h1 class="greeting reveal" style="--i:0">Oi, meu amor,</h1>
+
+      <p class="reveal" style="--i:1">Queria fazer algo diferente hoje, só pra te ver sorrir. Sabe aquelas coisas que a gente pensa e acha que não precisa dizer? Resolvi dizer.</p>
+
+      <figure class="polaroid reveal" style="--i:2">
+        <div class="photo-frame" id="photoFrame">
+          <img id="herPhoto" src="assets/foto-dela.jpg" alt="Foto dela" width="600" height="750" decoding="async">
+          <div class="photo-fallback" aria-hidden="true">
+            <svg><use href="#i-heart"/></svg>
+            <small>sua foto aqui</small>
+          </div>
+        </div>
+        <figcaption>meu sorriso favorito</figcaption>
+      </figure>
+
+      <p class="reveal" style="--i:3">Você é especial pra mim de um jeito que eu nem sempre sei explicar. O seu jeito, a sua risada, o modo como você deixa até os dias mais comuns mais leves. Tudo isso faz os meus dias melhores.</p>
+
+      <p class="reveal" style="--i:4">Obrigado por ser você e por estar na minha vida. Espero que essa cartinha tenha arrancado pelo menos um sorrisinho.</p>
+
+      <p class="final reveal" style="--i:5">Gosto muito de você. Sempre.</p>
+      <p class="sign reveal" style="--i:6">Com todo o meu carinho ♡</p>
+
+      <button class="btn btn-soft reveal" id="replayBtn" type="button" style="--i:7">Ler de novo ❤️</button>
+    </article>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
